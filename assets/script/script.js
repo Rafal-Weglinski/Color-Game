@@ -8,6 +8,8 @@ let colors = [
     "rgb(255, 0, 255)"
 ];
 
+let pickedColor;
+
 //Select all squares
 let squares = document.querySelectorAll(".square");
 
@@ -20,25 +22,10 @@ function newGame(){
     }
     //Change squares colors
     for (let i=0; i<squares.length; i++){
-    squares[i].style.backgroundColor = colors[i];
-
-    //Add event listener
-    squares[i].addEventListener("click", function(){
-        if(colors[i] === pickedColor){
-            alert("great!");
-            newGame();
-        }
-        else{
-            alert("wrong!");
-            newGame();
-        }
-    });
-    
-
-    
+    squares[i].style.backgroundColor = colors[i]; 
     }
     //Pick winning color
-    let pickedColor = colors[Math.floor(Math.random()*6)];
+    pickedColor = colors[Math.floor(Math.random()*6)];
 
     //Select Span in header
     let changeHeader = document.querySelector("span");
@@ -51,8 +38,19 @@ function newGame(){
 //Call the function
 newGame();
 
+//Add event listener
+for (let i=0; i<squares.length; i++){
+squares[i].addEventListener("click", function(){
+    if(colors[i] === pickedColor){
+        alert("great!");
+        newGame();
+    }
+    else{
+        alert("wrong!");
+        newGame();
+    }
+});
+}
 
 //Start new Game if "new game" button is clicked
 document.getElementById("newGame").addEventListener("click", newGame);
-
-
