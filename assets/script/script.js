@@ -10,6 +10,10 @@ let colors = [
 
 let pickedColor;
 
+// Declaring the score
+let score=0
+let displayScore = document.querySelector("h3 span") 
+
 //Select all squares
 let squares = document.querySelectorAll(".square");
 
@@ -25,7 +29,7 @@ function newGame(){
     squares[i].style.backgroundColor = colors[i]; 
     }
     //Pick winning color
-    pickedColor = colors[Math.floor(Math.random()*6)];
+    pickedColor = colors[Math.floor(Math.random()*colors.length)];
 
     //Select Span in header
     let changeHeader = document.querySelector("span");
@@ -38,15 +42,23 @@ function newGame(){
 //Call the function
 newGame();
 
-//Add event listener
+//
+text = document.querySelector("h2")
+
+//Add event listener - clicking the square
 for (let i=0; i<squares.length; i++){
 squares[i].addEventListener("click", function(){
     if(colors[i] === pickedColor){
-        alert("great!");
+        text.textContent = "Well done!";
+        text.style.color = "green"
+        score++;
+        displayScore.textContent = score;
         newGame();
     }
     else{
-        alert("wrong!");
+        text.textContent = "Try again";
+        text.style.color = "red";
+
         newGame();
     }
 });
@@ -54,3 +66,16 @@ squares[i].addEventListener("click", function(){
 
 //Start new Game if "new game" button is clicked
 document.getElementById("newGame").addEventListener("click", newGame);
+
+//Change difficulty when clicked the button
+document.getElementById("changeDiff").addEventListener("click", function(){
+    //Loop that toggle display-none class
+    for(let i=3; i<6; i++){
+        squares[i].classList.toggle("difficulty");}
+
+        //changing the game rules
+            colors.length === 3? colors.length = 6: colors.length = 3;
+            newGame();
+})
+
+
